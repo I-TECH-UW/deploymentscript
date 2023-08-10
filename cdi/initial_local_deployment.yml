@@ -1,6 +1,6 @@
 ---
 - name: Set up fresh SIGDEP3 server
-  hosts: myhosts
+  hosts: localhost
   become: yes
   vars_files:
     - ../variables.yml  # Include the variables file
