@@ -3,6 +3,6 @@
   hosts: myhosts
   become: yes
   vars_files:
-    - vars.yml  # Include the variables file
+    - variables.yml  # Include the variables file
   tasks:
     - import_tasks: restart_openmrs.yaml
