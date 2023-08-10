@@ -1,0 +1,64 @@
+  - name: Ensure old versions are not installed
+    apt:
+      name:
+        - docker
+        - docker-engine
+        - docker.io
+        - containerd
+        - runc
+      state: absent
+
+  - name: Install required packages
+    apt:
+      name:
+        - ca-certificates
+        - curl
+        - git
+        - gnupg
+        - lsb-release
+        - python3-pip
+      state: present
+      update_cache: yes
+  
+  - name: Get dpkg architecture
+    shell: dpkg --print-architecture
+    register: dpkg_arch
+  
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+      state: present
+      update_cache: yes
+    tags:
+      - docker
+
+  - name: Install docker
+    apt:
+      name:
+        - docker-ce 
+        - docker-ce-cli
+        - containerd.io
+#        - docker-compose-plugin
+        - docker-compose
+      state: present
+      update_cache: yes
+  
+  - name: Add {{ target_user }} to docker group
+    user:
+      name: "{{ target_user }}"
+      groups: docker
+      append: yes
+    become: true
+  - name: Reset ssh connection to apply group
+    meta:
+      reset_connection
+  - name: Change docker.sock file ownership, group and permissions
+    ansible.builtin.file:
+      path: /var/run/docker.sock
+      mode: '666'
+    become: true

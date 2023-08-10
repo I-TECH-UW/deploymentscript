@@ -1,0 +1,23 @@
+    - name: Install Git LFS
+      shell: |
+        curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+        apt-get install git-lfs -y
+
+    - name: Clone GitHub repository
+      git:
+        repo: https://github.com/SIGDEP-3/SIDEP-3-Docker-Setup.git
+        dest: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
+        force: yes
+        owner: nobody
+        group: nogroup
+        mode: "0755"  # Set appropriate permissions for the directory
+
+    - name: Down Docker project
+      command: docker-compose down -v
+      args:
+        chdir: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
+
+    - name: Start Docker project
+      command: docker-compose up -d
+      args:
+        chdir: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
