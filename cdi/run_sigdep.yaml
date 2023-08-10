@@ -8,9 +8,6 @@
         repo: https://github.com/SIGDEP-3/SIDEP-3-Docker-Setup.git
         dest: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
         force: yes
-        owner: nobody
-        group: nogroup
-        mode: "0755"  # Set appropriate permissions for the directory
 
     - name: Down Docker project
       command: docker-compose down -v
