@@ -33,7 +33,7 @@
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
       state: present
-      update_cache: yes
+#      update_cache: yes
     tags:
       - docker
 
@@ -46,7 +46,7 @@
 #        - docker-compose-plugin
         - docker-compose
       state: present
-      update_cache: yes
+#      update_cache: yes
   
   - name: Add {{ target_user }} to docker group
     user:
