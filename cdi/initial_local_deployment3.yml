@@ -1,0 +1,10 @@
+---
+- name: Set up fresh SIGDEP3 server
+  hosts: localhost
+  become: yes
+  vars_files:
+    - ../variables.yml  # Include the variables file
+  tasks:
+#    - import_tasks: ../utils/tasks/install_docker.yaml
+#    - import_tasks: run_sigdep.yaml
+    - import_tasks: restart_sigdep.yaml
