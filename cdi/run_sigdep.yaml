@@ -1,29 +1,3 @@
-    - name: Install Git LFS
-      shell: |
-        curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-        apt-get install git-lfs -y
-
-    - name: Clone GitHub repository
-      git:
-        repo: https://github.com/SIGDEP-3/SIDEP-3-Docker-Setup.git
-        dest: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
-        force: yes
-
-    - name: Set appropriate permissions
-      file:
-        path: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
-        recurse: yes
-        owner: "{{ ansible_user }}"  # Set the owner to the Ansible executing user
-        group: "{{ ansible_user }}"  # Set the group to the Ansible executing user's group
-        mode: "0777"  # Adjust the permissions as needed (read, write, execute for owner, and read/execute for others)
-    - name: Add safe.directory configuration
-      command: git config --global --add safe.directory /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
-
-    - name: Down Docker project
-      command: docker-compose down -v
-      args:
-        chdir: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
-
     - name: Start Docker project
       command: docker-compose -f docker-compose-local.yml up -d
       args:

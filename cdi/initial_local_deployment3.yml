@@ -6,5 +6,5 @@
     - ../variables.yml  # Include the variables file
   tasks:
 #    - import_tasks: ../utils/tasks/install_docker.yaml
-#    - import_tasks: run_sigdep.yaml
-    - import_tasks: restart_sigdep.yaml
+    - import_tasks: run_sigdep.yaml
+#    - import_tasks: restart_openmrs.yaml
