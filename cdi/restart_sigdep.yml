@@ -1,11 +1,11 @@
 
   tasks:
     - name: Stop Docker project
-      command: docker-compose stop sigdep3
+      command: docker-compose -f docker-compose-local.yml stop sigdep3
       args:
         chdir: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
 
     - name: Start Docker project
-      command: docker-compose up 
+      command: docker-compose -f docker-compose-local.yml up sigdep3 
       args:
         chdir: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
