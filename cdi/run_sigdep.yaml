@@ -9,6 +9,16 @@
         dest: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
         force: yes
 
+    - name: Set appropriate permissions
+      file:
+        path: /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
+        recurse: yes
+        owner: "{{ ansible_user }}"  # Set the owner to the Ansible executing user
+        group: "{{ ansible_user }}"  # Set the group to the Ansible executing user's group
+        mode: "0777"  # Adjust the permissions as needed (read, write, execute for owner, and read/execute for others)
+    - name: Add safe.directory configuration
+      command: git config --global --add safe.directory /home/{{ target_user }}/code/SIDEP-3-Docker-Setup
+
     - name: Down Docker project
       command: docker-compose down -v
       args:
